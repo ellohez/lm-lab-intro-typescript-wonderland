@@ -11,41 +11,57 @@ interface Witness {
 }
 
 export function meetTheQueen(): void {
-	clear(true);
-	print('The Queen has put you on trial for stealing tarts.');
+  clear(true);
+  print("The Queen has put you on trial for stealing tarts.");
 
-	let guilty: boolean = false;
+  let guilty: boolean = false;
 
-	let witnesses: Witness[] = []; // 👉 FIXME ❌ - call getWitnesses here
+  const witnessNames = [
+    "The Mad Hatter",
+    "The March Hare",
+    "The Cheshire Cat",
+    "The White Rabbit",
+  ];
 
-	if (!witnesses || witnesses.length === 0) {
-		print(`No witnesses have come forward to defend you.`);
-		guilty = true;
-	}
+  let witnesses: Array<Witness> = getWitnesses(witnessNames); // 👉 FIXME ❌ - call getWitnesses here
 
-	let witnessCount = 0;
+  if (!witnesses || witnesses.length === 0) {
+    print(`No witnesses have come forward to defend you.`);
+    guilty = true;
+  }
 
-	witnesses.forEach((witness) => {
-		witnessCount++;
-		print(
-			`${witness.name} gives their evidence: ${witness.giveEvidence()}`
-		);
-		if (witness.giveEvidence() === 'Guilty') {
-			guilty = true;
-		}
-	});
+  let witnessCount = 0;
 
-	if (witnessCount < 4 || guilty) {
-		print(`You have been found guilty! "Off with her head!" 😱`);
-		return endAdventure();
-	} else {
-		print(`You have been found NOT GUILTY! Thank goodness. 🥳`);
-		print('Time to wake up...');
-		return askQuestion('Press ENTER to continue! ', wakeUp);
-	}
+  witnesses.forEach((witness) => {
+    witnessCount++;
+    print(`${witness.name} gives their evidence: ${witness.giveEvidence()}`);
+    if (witness.giveEvidence() === "Guilty") {
+      guilty = true;
+    }
+  });
+
+  if (witnessCount < 4 || guilty) {
+    print(`You have been found guilty! "Off with her head!" 😱`);
+    return endAdventure();
+  } else {
+    print(`You have been found NOT GUILTY! Thank goodness. 🥳`);
+    print("Time to wake up...");
+    return askQuestion("Press ENTER to continue! ", wakeUp);
+  }
 }
 
 // 👉 FIXME ❌ - this function needs writing to meet the above criteria
-function getWitnesses(): any {
-	return [];
+function getWitnesses(witnessNames: string[]): Array<Witness> {
+  //   const witnessArray = new Array<Witness>();
+  //   for (const name in witnessNames) {
+  //     witnessArray.push({
+  //       name: name,
+  //       giveEvidence: () => "Not Guilty",
+  //     });
+  //   }
+  //   return witnessArray;
+
+  return witnessNames.map((n) => {
+    return { name: n, giveEvidence: () => "Not Guilty" };
+  });
 }
