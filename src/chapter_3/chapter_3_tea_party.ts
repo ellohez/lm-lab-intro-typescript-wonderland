@@ -6,8 +6,8 @@ const DRINKS = ['Coffee', 'Tea', 'Water', 'Lemonade'] as const;
 type DrinkType = typeof DRINKS[number];
 
 type Drink = {
-	type: DrinkType;
-	poured: boolean;
+  type: DrinkType;
+  poured: boolean;
 };
 
 type Seat = {
@@ -20,8 +20,18 @@ type Table = {
 
 function setTheTable(): Table {
 	// 👉 FIXME ❌
-	return { seats: [] };
-}
+	const table: Table = { seats: [] };  
+
+	for(let i = 0; i < 4; i++) {
+		table.seats.push({
+			drink: { 
+				type: 'Tea',
+				poured: true,
+			},
+		});
+	};
+	return table;
+};
 
 export function attendATeaParty() {
 	clear(true);
